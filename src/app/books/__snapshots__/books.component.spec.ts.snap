@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BooksComponent should display book details 1`] = `
+<app-books
+  books={[Function Array]}
+  booksCopy={[Function Array]}
+  booksPerPage={[Function Number]}
+  booksService={[Function BooksService]}
+  booksSorted="false"
+  currentPage={[Function Number]}
+  filteredBooks={[Function Array]}
+  filteredBooksCopy={[Function Array]}
+  isFiltered="false"
+  searchTerm=""
+>
+  <div
+    class="container"
+  >
+    <div
+      class="d-flex justify-content-between"
+    >
+      <div
+        class="dropdown"
+      >
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          data-toggle="dropdown"
+          id="dropdownMenuButton"
+          type="button"
+        >
+          Dropdown button
+        </button>
+        <div
+          aria-labelledby="dropdownMenuButton"
+          class="dropdown-menu"
+        >
+          <a
+            class="dropdown-item"
+          >
+            Svi
+          </a>
+          <a
+            class="dropdown-item"
+          >
+            Pera Perić
+          </a>
+          <a
+            class="dropdown-item"
+          >
+            Mika Mikić
+          </a>
+          <a
+            class="dropdown-item"
+          >
+            Laza Lazić
+          </a>
+        </div>
+      </div>
+      <input
+        type="text"
+      />
+      <button>
+        Search
+      </button>
+    </div>
+    <table
+      class="books table"
+    >
+      <thead>
+        <tr>
+          <th
+            scope="col"
+          />
+          <th
+            scope="col"
+          >
+            Name
+          </th>
+          <th
+            scope="col"
+          >
+            Author
+          </th>
+          <th
+            scope="col"
+          >
+            No. of pages
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    
+  </div><router-outlet />
+</app-books>
+`;

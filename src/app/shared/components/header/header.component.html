@@ -1,0 +1,30 @@
+<div class="header">
+    <fa-icon
+        [icon]="faBars"
+        class="navigation-toggle"
+        (click)="toggleNavigation()"
+    ></fa-icon>
+
+    <div class="navigation" [class.hidden]="!navigationOpened">
+        <ul class="navigation__list">
+            <li class="navigation__list-item">
+                <a
+                    [routerLink]="['/']"
+                    routerLinkActive="active"
+                    class="navigation__list-link"
+                    (click)="navigationOpened = false"
+                >Home</a>
+            </li>
+            <li class="navigation__list-item">
+                <a
+                    [routerLink]="['/books']"
+                    routerLinkActive="active"
+                    class="navigation__list-link"
+                    (click)="navigationOpened = false"
+                >Books</a>
+            </li>
+        </ul>
+    </div>
+
+    <h1 class="header__title">{{ title }}</h1>
+</div>

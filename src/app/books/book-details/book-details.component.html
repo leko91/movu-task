@@ -1,0 +1,28 @@
+<div class="details">
+    <img width="200" height="200" src="{{ book.coverImage }}">
+    <ul>
+        <li>
+            Author: {{ book.author }}
+        </li>
+        <li>
+            Name: {{ book.name }}
+        </li>
+        <li>
+            Number of pages: {{ book.numberOfPages }}
+        </li>
+        <li>
+            Published year: {{ book.publishedYear }}
+        </li>
+        <li>
+            <div class="input-group">
+                Quantity:
+                <input type="number" [(ngModel)]="bookQuantity" class="form-control">
+                <div class="input-group-append">
+                    <button (click)="editQuantity()" class="btn btn-secondary">Save</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <button (click)="closeDetails()" class="btn btn-secondary">Close</button>
+</div>

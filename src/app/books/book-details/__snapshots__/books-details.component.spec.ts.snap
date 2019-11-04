@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookDetailsComponent should display book details 1`] = `
+<app-book-details
+  books={[Function Array]}
+  booksService={[Function BooksService]}
+  renderer={[Function DebugRenderer2]}
+  route={[Function ActivatedRoute]}
+  router={[Function Router]}
+>
+  <div
+    class="details"
+  >
+    <img
+      height="200"
+      width="200"
+    />
+    <ul>
+      <li>
+         Author: 
+      </li>
+      <li>
+         Name: 
+      </li>
+      <li>
+         Number of pages: 
+      </li>
+      <li>
+         Published year: 
+      </li>
+      <li>
+         Quantity: 
+        <input
+          type="number"
+        />
+        <button>
+          Save
+        </button>
+      </li>
+    </ul>
+    <button>
+      Close
+    </button>
+  </div>
+</app-book-details>
+`;
