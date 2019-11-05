@@ -9,6 +9,7 @@ import { Book } from './book';
 })
 export class BooksService {
   apiURL = 'http://api.url';
+  books: Book[];
 
   constructor() { }
 
@@ -20,15 +21,15 @@ export class BooksService {
   //   return this.http.get(`${this.apiURL}/books`);
   // }
 
-  getBookById(inputArray: Book[], id: string) {
+  getBook(bookId: string) {
     const keyId = 'id';
-    return inputArray.find(res => res[keyId] === id);
+    return BOOKS.find(res => res[keyId] === bookId);
   }
 
-  editBookQuantity(inputArray: Book[], id: string, newQuantity: number) {
+  editBookQuantity(bookId: string, newQuantity: number) {
     const keyId = 'id';
     const quantityId = 'quantity';
-    return inputArray[inputArray.findIndex(elem => elem[keyId] === id)][quantityId] = newQuantity;
+    return BOOKS[BOOKS.findIndex(elem => elem[keyId] === bookId)][quantityId] = newQuantity;
   }
 
   // editBookQuantity(bookId: string, newQuantity: number): Observable<any> {

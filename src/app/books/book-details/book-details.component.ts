@@ -12,7 +12,6 @@ import { Book } from '../book';
 export class BookDetailsComponent implements OnInit {
   bookId: string;
   book: Book;
-  books: Book[] = [];
   bookQuantity: number;
 
   constructor(
@@ -27,17 +26,13 @@ export class BookDetailsComponent implements OnInit {
       this.bookId = params.get('id');
     });
 
-    this.booksService.getBooks().subscribe(res => {
-      this.books = res;
-
-      this.getBook();
-    });
+    this.getBook();
   }
 
   getBook() {
     const quantityKey = 'quantity';
 
-    this.book = this.booksService.getBookById(this.books, this.bookId);
+    this.book = this.booksService.getBook(this.bookId);
     this.bookQuantity = this.book[quantityKey];
     this.renderer.addClass(document.body, 'details-open');
   }
@@ -49,6 +44,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   editQuantity() {
-    this.bookQuantity = this.booksService.editBookQuantity(this.books, this.bookId, this.bookQuantity);
+    this.bookQuantity = this.booksService.editBookQuantity(this.bookId, this.bookQuantity);
   }
 }
