@@ -6,9 +6,7 @@
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" (click)="filterByAuthor()">Svi</a>
-                    <a class="dropdown-item" (click)="filterByAuthor('Pera Perić')">Pera Perić</a>
-                    <a class="dropdown-item" (click)="filterByAuthor('Mika Mikić')">Mika Mikić</a>
-                    <a class="dropdown-item" (click)="filterByAuthor('Laza Lazić')">Laza Lazić</a>
+                    <a *ngFor="let author of authors" class="dropdown-item" (click)="filterByAuthor(author.name)">{{ author.name }}</a>
                 </div>
             </div>
 

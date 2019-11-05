@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BooksService } from './books.service';
 import { Book } from './book';
+import { BooksService } from './books.service';
+import { Author } from './author';
+import { AuthorsService } from './authors.service';
 
 @Component({
   selector: 'app-books',
@@ -11,10 +13,15 @@ import { Book } from './book';
 export class BooksComponent implements OnInit {
   books: Book[] = [];
   booksCopy: Book[] = [];
+
   filteredBooks: Book[] = [];
   filteredBooksCopy: Book[] = [];
+
   searchedBooks: Book[] = [];
   searchedBooksCopy: Book[] = [];
+
+  authors: Author[];
+
   booksSorted = false;
   booksPerPage = 10;
   currentPage = 1;
@@ -23,11 +30,13 @@ export class BooksComponent implements OnInit {
   searchTerm = '';
 
   constructor(
-    private booksService: BooksService
+    private booksService: BooksService,
+    private authorsService: AuthorsService
   ) { }
 
   ngOnInit() {
     this.getBooks();
+    this.getAuthors();
   }
 
   getBooks() {
@@ -36,6 +45,17 @@ export class BooksComponent implements OnInit {
         this.booksCopy = res;
         this.books = this.getPaginated(res);
         this.totalPages = this.getTotalPages(this.booksCopy);
+      },
+      err => {
+        alert(err);
+      }
+    );
+  }
+
+  getAuthors() {
+    this.authorsService.getAuthors().subscribe(
+      res => {
+        this.authors = res;
       },
       err => {
         alert(err);
