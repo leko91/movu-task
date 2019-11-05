@@ -31,7 +31,6 @@ export class BooksComponent implements OnInit {
   getBooks() {
     this.booksService.getBooks().subscribe(
       res => {
-        console.log(res);
         this.booksCopy = res;
         this.books = this.getPaginated(res);
         this.totalPages = this.getTotalPages(this.booksCopy);
@@ -54,7 +53,14 @@ export class BooksComponent implements OnInit {
   sortBooks(key) {
     this.booksSorted = !this.booksSorted;
 
-    this.books.sort((elem1, elem2) => {
+    let sortArray;
+    if (this.isFiltered) {
+      sortArray = this.filteredBooksCopy;
+    } else {
+      sortArray = this.booksCopy;
+    }
+
+    sortArray.sort((elem1, elem2) => {
       if (elem1[key] > elem2[key]) {
         return this.booksSorted ? 1 : -1;
       }
@@ -63,6 +69,12 @@ export class BooksComponent implements OnInit {
         return this.booksSorted ? -1 : 1;
       }
     });
+
+    if (this.isFiltered) {
+      this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
+    } else {
+      this.books = this.getPaginated(this.booksCopy);
+    }
   }
 
   // Dropdown filter
