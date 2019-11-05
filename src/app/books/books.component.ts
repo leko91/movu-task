@@ -13,6 +13,8 @@ export class BooksComponent implements OnInit {
   booksCopy: Book[] = [];
   filteredBooks: Book[] = [];
   filteredBooksCopy: Book[] = [];
+  searchedBooks: Book[] = [];
+  searchedBooksCopy: Book[] = [];
   booksSorted = false;
   booksPerPage = 10;
   currentPage = 1;
@@ -136,7 +138,15 @@ export class BooksComponent implements OnInit {
   // Search
   search() {
     const keyName = 'name';
-    this.filteredBooks = this.booksCopy.reduce((acc, cur) => {
+
+    let sortArray;
+    if (this.isFiltered) {
+      sortArray = this.filteredBooksCopy;
+    } else {
+      sortArray = this.booksCopy;
+    }
+
+    this.filteredBooks = sortArray.reduce((acc, cur) => {
       if (cur[keyName].toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1) {
         acc.push(cur);
       }
