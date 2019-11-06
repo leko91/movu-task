@@ -16,22 +16,24 @@ exports[`BookDetailsComponent should display book details 1`] = `
     />
     <ul>
       <li>
-         Author: 
+         Author:
+        <br />
+         (Born:
       </li>
       <li>
-         Name: 
+         Name:
       </li>
       <li>
-         Number of pages: 
+         Number of pages:
       </li>
       <li>
-         Published year: 
+         Published year:
       </li>
       <li>
         <div
           class="input-group"
         >
-           Quantity: 
+           Quantity:
           <input
             class="form-control"
             type="number"
