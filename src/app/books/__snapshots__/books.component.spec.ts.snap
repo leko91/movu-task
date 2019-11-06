@@ -2,6 +2,7 @@
 
 exports[`BooksComponent should display book details 1`] = `
 <app-books
+  authorsService={[Function AuthorsService]}
   books={[Function Array]}
   booksCopy={[Function Array]}
   booksPerPage={[Function Number]}
@@ -44,21 +45,7 @@ exports[`BooksComponent should display book details 1`] = `
             >
               Svi
             </a>
-            <a
-              class="dropdown-item"
-            >
-              Pera Perić
-            </a>
-            <a
-              class="dropdown-item"
-            >
-              Mika Mikić
-            </a>
-            <a
-              class="dropdown-item"
-            >
-              Laza Lazić
-            </a>
+            
           </div>
         </div>
         <div

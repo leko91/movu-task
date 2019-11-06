@@ -2,7 +2,6 @@
 
 exports[`BookDetailsComponent should display book details 1`] = `
 <app-book-details
-  books={[Function Array]}
   booksService={[Function BooksService]}
   renderer={[Function DebugRenderer2]}
   route={[Function ActivatedRoute]}
