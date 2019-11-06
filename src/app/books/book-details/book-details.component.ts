@@ -1,8 +1,10 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BooksService } from '../books.service';
-import { Book } from '../book';
+import { BooksService } from '../../shared/services/books.service';
+import { Book } from '../../shared/models/book';
+import { AuthorsService } from '../../shared/services/authors.service';
+import { Author } from 'src/app/shared/models/author';
 
 @Component({
   selector: 'app-book-details',
@@ -12,10 +14,12 @@ import { Book } from '../book';
 export class BookDetailsComponent implements OnInit {
   bookId: string;
   book: Book;
-  books: Book[] = [];
   bookQuantity: number;
 
+  author: Author;
+
   constructor(
+    private authorsService: AuthorsService,
     private booksService: BooksService,
     private route: ActivatedRoute,
     private router: Router,
@@ -27,19 +31,20 @@ export class BookDetailsComponent implements OnInit {
       this.bookId = params.get('id');
     });
 
-    this.booksService.getBooks().subscribe(res => {
-      this.books = res;
-
-      this.getBook();
-    });
+    this.getBook();
+    this.getAuthor();
   }
 
   getBook() {
     const quantityKey = 'quantity';
 
-    this.book = this.booksService.getBookById(this.books, this.bookId);
+    this.book = this.booksService.getBook(this.bookId);
     this.bookQuantity = this.book[quantityKey];
     this.renderer.addClass(document.body, 'details-open');
+  }
+
+  getAuthor() {
+    this.author = this.authorsService.getAuthor(this.book);
   }
 
   closeDetails() {
@@ -49,6 +54,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   editQuantity() {
-    this.bookQuantity = this.booksService.editBookQuantity(this.books, this.bookId, this.bookQuantity);
+    this.bookQuantity = this.booksService.editBookQuantity(this.bookId, this.bookQuantity);
   }
 }

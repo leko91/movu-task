@@ -5,6 +5,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 
   &.details-open {
+    position: relative;
+    overflow: hidden;
+
     &::before {
       position: absolute;
       top: 0;
