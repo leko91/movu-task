@@ -3,17 +3,10 @@
 exports[`BooksComponent should display book details 1`] = `
 <app-books
   authorsService={[Function AuthorsService]}
-  books={[Function Array]}
-  booksCopy={[Function Array]}
   booksPerPage={[Function Number]}
   booksService={[Function BooksService]}
   currentPage={[Function Number]}
-  filteredBooks={[Function Array]}
-  filteredBooksCopy={[Function Array]}
-  isFiltered="false"
-  searchTerm=""
-  searchedBooks={[Function Array]}
-  searchedBooksCopy={[Function Array]}
+  filteredAuthor={[Function String]}
 >
   <div
     class="books"
@@ -33,7 +26,7 @@ exports[`BooksComponent should display book details 1`] = `
             id="dropdownMenuButton"
             type="button"
           >
-            Dropdown button
+            
           </button>
           <div
             aria-labelledby="dropdownMenuButton"
@@ -42,9 +35,9 @@ exports[`BooksComponent should display book details 1`] = `
             <a
               class="dropdown-item"
             >
-              Svi
+              All authors
             </a>
-
+            
           </div>
         </div>
         <div
@@ -91,10 +84,10 @@ exports[`BooksComponent should display book details 1`] = `
           </tr>
         </thead>
         <tbody>
-
+          
         </tbody>
       </table>
-
+      
     </div>
   </div><router-outlet />
 </app-books>
