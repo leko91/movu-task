@@ -1,5 +1,5 @@
-import { Book } from './book';
-import { AUTHORS } from './mock-authors';
+import { Book } from '../models/book';
+import { AUTHORS } from './authors';
 
 function getRandomAuthor() {
   return AUTHORS[Math.floor(Math.random() * AUTHORS.length)].name;
