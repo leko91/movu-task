@@ -2,7 +2,7 @@
 
 exports[`BookDetailsComponent should display book details 1`] = `
 <app-book-details
-  books={[Function Array]}
+  authorsService={[Function AuthorsService]}
   booksService={[Function BooksService]}
   renderer={[Function DebugRenderer2]}
   route={[Function ActivatedRoute]}
@@ -18,6 +18,8 @@ exports[`BookDetailsComponent should display book details 1`] = `
     <ul>
       <li>
          Author: 
+        <br />
+         (Born: 
       </li>
       <li>
          Name: 
@@ -29,16 +31,29 @@ exports[`BookDetailsComponent should display book details 1`] = `
          Published year: 
       </li>
       <li>
-         Quantity: 
-        <input
-          type="number"
-        />
-        <button>
-          Save
-        </button>
+        <div
+          class="input-group"
+        >
+           Quantity: 
+          <input
+            class="form-control"
+            type="number"
+          />
+          <div
+            class="input-group-append"
+          >
+            <button
+              class="btn btn-secondary"
+            >
+              Save
+            </button>
+          </div>
+        </div>
       </li>
     </ul>
-    <button>
+    <button
+      class="btn btn-secondary"
+    >
       Close
     </button>
   </div>
