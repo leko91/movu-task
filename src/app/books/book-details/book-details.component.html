@@ -2,7 +2,8 @@
     <img width="200" height="200" src="{{ book.coverImage }}">
     <ul>
         <li>
-            Author: {{ book.author }}
+            Author: {{ book.author }}<br>
+            (Born: {{ author.dateOfBirth | date: 'dd.MM.yyyy.' }})
         </li>
         <li>
             Name: {{ book.name }}

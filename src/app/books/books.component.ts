@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Book } from './book';
-import { BooksService } from './books.service';
-import { Author } from './author';
-import { AuthorsService } from './authors.service';
+import { Book } from '../shared/models/book';
+import { BooksService } from '../shared/services/books.service';
+import { Author } from '../shared/models/author';
+import { AuthorsService } from '../shared/services/authors.service';
 
 @Component({
   selector: 'app-books',
@@ -11,23 +11,14 @@ import { AuthorsService } from './authors.service';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
-  books: Book[] = [];
-  booksCopy: Book[] = [];
-
-  filteredBooks: Book[] = [];
-  filteredBooksCopy: Book[] = [];
-
-  searchedBooks: Book[] = [];
-  searchedBooksCopy: Book[] = [];
-
+  books: Book[];
   authors: Author[];
 
-  booksSorted = false;
   booksPerPage = 10;
-  currentPage = 1;
   totalPages: number;
-  isFiltered = false;
-  searchTerm = '';
+  currentPage = 1;
+  searchTerm: string;
+  filteredAuthor = 'Select an author';
 
   constructor(
     private booksService: BooksService,
@@ -36,15 +27,13 @@ export class BooksComponent implements OnInit {
 
   ngOnInit() {
     this.getBooks();
-    this.getAuthors();
+    this.getTotalPaginationPages();
   }
 
   getBooks() {
     this.booksService.getBooks().subscribe(
       res => {
-        this.booksCopy = res;
-        this.books = this.getPaginated(res);
-        this.totalPages = this.getTotalPages(this.booksCopy);
+        this.books = res;
       },
       err => {
         alert(err);
@@ -63,125 +52,44 @@ export class BooksComponent implements OnInit {
     );
   }
 
-  getPaginated(inputArray) {
-    return inputArray.slice((this.currentPage - 1) * this.booksPerPage, (this.currentPage) * this.booksPerPage);
+  getTotalPaginationPages() {
+    this.totalPages = this.booksService.getTotalPaginationPages();
   }
 
-  getTotalPages(inputArray) {
-    return Math.round(inputArray.length / this.booksPerPage);
+  getCurrentPaginationPage() {
+    this.currentPage = this.booksService.getCurrentPaginationPage();
   }
 
-  // Basic sort
-  sortBooks(key) {
-    this.booksSorted = !this.booksSorted;
-
-    let sortArray;
-    if (this.isFiltered) {
-      sortArray = this.filteredBooksCopy;
-    } else {
-      sortArray = this.booksCopy;
-    }
-
-    sortArray.sort((elem1, elem2) => {
-      if (elem1[key] > elem2[key]) {
-        return this.booksSorted ? 1 : -1;
-      }
-
-      if (elem1[key] < elem2[key]) {
-        return this.booksSorted ? -1 : 1;
-      }
-    });
-
-    if (this.isFiltered) {
-      this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
-    } else {
-      this.books = this.getPaginated(this.booksCopy);
-    }
+  sortBooks(key: string) {
+    this.books = this.booksService.sortBooks(key);
   }
 
-  // Dropdown filter
-  filterByAuthor(author) {
-    if (author === undefined) {
-      this.isFiltered = false;
-      this.filteredBooks = [];
-      this.currentPage = 1;
-      this.books = this.getPaginated(this.booksCopy);
-      this.totalPages = this.getTotalPages(this.booksCopy);
-      return;
-    }
-
-    const keyAuthor = 'author';
-    this.filteredBooks = this.booksCopy.reduce((acc, cur) => {
-      if (cur[keyAuthor] === author) {
-        acc.push(cur);
-      }
-      return acc;
-    }, []);
-    this.filteredBooksCopy = this.filteredBooks;
-    this.isFiltered = true;
-    this.currentPage = 1;
-    this.totalPages = this.getTotalPages(this.filteredBooks);
-    this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
+  filterByAuthor(author: string) {
+    this.filteredAuthor = author;
+    this.searchTerm = '';
+    this.books = this.booksService.filterByAuthor(author);
+    this.getTotalPaginationPages();
+    this.getCurrentPaginationPage();
   }
 
-  // Pagination
   nextPage() {
-    this.currentPage++;
-
-    if (this.isFiltered) {
-      this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
-    } else {
-      this.books = this.getPaginated(this.booksCopy);
-    }
+    this.books = this.booksService.nextPage();
+    this.getCurrentPaginationPage();
   }
 
   prevPage() {
-    this.currentPage--;
-
-    if (this.isFiltered) {
-      this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
-    } else {
-      this.books = this.getPaginated(this.booksCopy);
-    }
+    this.books = this.booksService.prevPage();
+    this.getCurrentPaginationPage();
   }
 
-  goToPage(page) {
-    this.currentPage = page;
-
-    if (this.isFiltered) {
-      this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
-    } else {
-      this.books = this.getPaginated(this.booksCopy);
-    }
+  goToPage(pageNumber: number) {
+    this.books = this.booksService.goToPage(pageNumber);
+    this.getCurrentPaginationPage();
   }
 
-  // Search
-  search() {
-    const keyName = 'name';
-
-    let sortArray;
-    if (this.isFiltered) {
-      sortArray = this.filteredBooksCopy;
-    } else {
-      sortArray = this.booksCopy;
-    }
-
-    this.filteredBooks = sortArray.reduce((acc, cur) => {
-      if (cur[keyName].toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1) {
-        acc.push(cur);
-      }
-
-      return acc;
-    }, []);
-
-    if (this.filteredBooks.length === 0) {
-      this.filteredBooks = [];
-    }
-
-    this.filteredBooksCopy = this.filteredBooks;
-    this.isFiltered = true;
-    this.currentPage = 1;
-    this.totalPages = this.getTotalPages(this.filteredBooks);
-    this.filteredBooks = this.getPaginated(this.filteredBooksCopy);
+  searchBooks() {
+    this.books = this.booksService.searchBooks(this.searchTerm);
+    this.getTotalPaginationPages();
+    this.getCurrentPaginationPage();
   }
 }

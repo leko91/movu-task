@@ -1,8 +1,10 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BooksService } from '../books.service';
-import { Book } from '../book';
+import { BooksService } from '../../shared/services/books.service';
+import { Book } from '../../shared/models/book';
+import { AuthorsService } from '../../shared/services/authors.service';
+import { Author } from 'src/app/shared/models/author';
 
 @Component({
   selector: 'app-book-details',
@@ -14,7 +16,10 @@ export class BookDetailsComponent implements OnInit {
   book: Book;
   bookQuantity: number;
 
+  author: Author;
+
   constructor(
+    private authorsService: AuthorsService,
     private booksService: BooksService,
     private route: ActivatedRoute,
     private router: Router,
@@ -27,6 +32,7 @@ export class BookDetailsComponent implements OnInit {
     });
 
     this.getBook();
+    this.getAuthor();
   }
 
   getBook() {
@@ -35,6 +41,10 @@ export class BookDetailsComponent implements OnInit {
     this.book = this.booksService.getBook(this.bookId);
     this.bookQuantity = this.book[quantityKey];
     this.renderer.addClass(document.body, 'details-open');
+  }
+
+  getAuthor() {
+    this.author = this.authorsService.getAuthor(this.book);
   }
 
   closeDetails() {
